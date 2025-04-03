@@ -1,0 +1,76 @@
+server:
+  port: ${PORT:8010}
+
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      cors:
+        allowed-methods: GET,POST
+        allowed-origins: "*"
+      base-path: /__manage
+      exposure.include: health, live, prometheus
+  endpoint:
+    health.enabled: true
+    prometheus.enabled: true
+
+spring:
+  sleuth:
+    sampler:
+      rate: 1
+    web:
+      skip-pattern: \"(^.*/__manage/.*)\"
+  zipkin:
+    base-url: http://jaeger-collector:9411
+  main.banner-mode: "off"
+  kafka:
+    listener:
+      concurrency: 4
+  jackson:
+    deserialization:
+      ADJUST_DATES_TO_CONTEXT_TIME_ZONE: false
+
+kafka:
+  topic:
+    groupId: audit-events
+    prefix: audit-events-topic
+    replicationFactor: 2
+    partitionCount: 8
+
+dynamo:
+  table:
+    suffix: ${spring.profiles.active}
+
+shardmap.url: https://internal-shardmap.auditexample.com/%s.json
+
+caching:
+  enable: true
+
+core:
+  audit:
+    enable: true
+    auth:
+      clientId: ${Q_OAUTH_SERVICE_CLIENTID}
+      clientSecret: ${Q_OAUTH_SERVICE_SECRET}
+      tokenUrl: http://api-uaa/oauth/token?grant_type=client_credentials
+      userInfoUri: http://api-uaa/user/oauth
+    logs:
+      url: http://qwfmbackend/api/1.4/logs
+
+security:
+  oauth2:
+    resource:
+      userInfoUri : http://api-uaa/user/oauth
+
+organisation:
+  service:
+    url: http://organisation
+
+# Log config
+logging:
+  level:
+    org.springframework.security.oauth2: INFO
+    com.auditexample: INFO
+    org.hibernate: WARN
+    org.springframework: WARN
+    org.apache.kafka: WARN

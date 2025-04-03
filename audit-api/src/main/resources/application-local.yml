@@ -1,0 +1,36 @@
+spring:
+  sleuth:
+    enabled: false
+  zipkin:
+    enabled: false
+  main.banner-mode: "console"
+
+kafka_servers: 'localhost:9092'
+
+dynamo:
+  url: 'http://localhost:8000'
+  state.manager.enable: true
+
+api.docs.internal: true
+
+security:
+  oauth2:
+    resource:
+      userInfoUri : http://localhost:8008/user/oauth
+
+core:
+  audit:
+    enable: false
+
+# Log config
+logging:
+  level:
+    com.auditexample: INFO
+    com.auditexample.api.audit: DEBUG
+    org.springframework: INFO
+    com:
+      fasterxml:
+        jackson: DEBUG
+    org:
+      codehaus:
+        jackson: DEBUG

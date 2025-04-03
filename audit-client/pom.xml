@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.auditexample.api.audit</groupId>
+  <artifactId>audit-client</artifactId>
+  <version>2.0.9</version>
+  <packaging>jar</packaging>
+
+  <name>Auditexample Audit API Client</name>
+
+  <properties>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+    <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
+    <consul.version>1.4.2</consul.version>
+    <aspectj.version>1.9.5</aspectj.version>
+    <junit.version>5.7.0</junit.version>
+    <mockito.version>3.5.13</mockito.version>
+    <spring.kafka.version>2.6.1</spring.kafka.version>
+    <jackson.version>2.11.0</jackson.version>
+    <spring.boot.version>2.1.0.RELEASE</spring.boot.version>
+    <spring.security.oauth2.client.version>5.1.0.RELEASE</spring.security.oauth2.client.version>
+
+    <gcp.storage.wagon.version>2.1</gcp.storage.wagon.version>
+    <gcp.maven.bucket>auditexample-maven-repo</gcp.maven.bucket>
+    <gcp.project-id>auditexample-cloud-infrastructure</gcp.project-id>
+    <artifactregistry.maven.wagon.version>2.1.0</artifactregistry.maven.wagon.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <version>${spring.boot.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+      <version>${spring.boot.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-webflux</artifactId>
+      <version>${spring.boot.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-oauth2-client</artifactId>
+      <version>${spring.security.oauth2.client.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.orbitz.consul</groupId>
+      <artifactId>consul-client</artifactId>
+      <version>${consul.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jsr310</artifactId>
+      <version>${jackson.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <optional>true</optional>
+      <version>1.18.12</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.kafka</groupId>
+      <artifactId>spring-kafka</artifactId>
+      <version>${spring.kafka.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <version>${aspectj.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-junit-jupiter</artifactId>
+      <version>${mockito.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>11</source>
+          <target>11</target>
+          <forceJavacCompilerUse>true</forceJavacCompilerUse>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven.surefire.plugin.version}</version>
+      </plugin>
+    </plugins>
+    <extensions>
+      <extension>
+        <groupId>com.lahsivjar</groupId>
+        <artifactId>gcp-storage-wagon</artifactId>
+        <version>${gcp.storage.wagon.version}</version>
+      </extension>
+      <extension>
+        <groupId>com.google.cloud.artifactregistry</groupId>
+        <artifactId>artifactregistry-maven-wagon</artifactId>
+        <version>${artifactregistry.maven.wagon.version}</version>
+      </extension>
+    </extensions>
+  </build>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>cloud-artifacts</id>
+      <url>artifactregistry://europe-maven.pkg.dev/auditexample-cloud-infrastructure/backend-store</url>
+    </snapshotRepository>
+    <repository>
+      <id>cloud-artifacts</id>
+      <url>artifactregistry://europe-maven.pkg.dev/auditexample-cloud-infrastructure/backend-store</url>
+    </repository>
+  </distributionManagement>
+
+</project>

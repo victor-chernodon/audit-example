@@ -1,0 +1,10 @@
+steps:
+  - id: 'maven-nopr'
+    name: 'eu.gcr.io/auditexample-cloud-infrastructure/maven3-jdk-11:latest-master'
+    entrypoint: 'mvn'
+    args: [ '--batch-mode', 'clean', 'install', 'deploy']
+  - id: 'maven-onlypr'
+    name: 'eu.gcr.io/auditexample-cloud-infrastructure/maven3-jdk-11:latest-master'
+    entrypoint: 'mvn'
+    args: [ '--batch-mode', 'clean', 'install']
+timeout: 3600s

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/audit-api" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/audit-client" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/audit-common" vcs="Git" />
+  </component>
+</project>

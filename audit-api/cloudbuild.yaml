@@ -1,0 +1,19 @@
+steps:
+  - name: 'eu.gcr.io/example-cloud-infrastructure/neo-build-cache:latest-master'
+    entrypoint: "/bin/sh"
+    args:
+      - '-c'
+      - |
+        cp -r /m2 /workspace
+  - name: 'eu.gcr.io/example-cloud-infrastructure/neo-build-cache:latest-master'
+    entrypoint: 'mvn'
+    args: ['-Dmaven.repo.local=/workspace/m2', '--batch-mode', 'clean', 'install', '-P', 'docker.build']
+  - id: 'docker'
+    name: 'gcr.io/cloud-builders/docker'
+    args: ['build',
+           '--build-arg', '_BRANCH=$_BRANCH',
+           '-t', 'eu.gcr.io/$PROJECT_ID/$_DOCKERNAME:$_BRANCH-$_AUDITEXAMPLEVERSION-$SHORT_SHA',
+           '.']
+images:
+  - 'eu.gcr.io/$PROJECT_ID/$_DOCKERNAME:$_BRANCH-$_AUDITEXAMPLEVERSION-$SHORT_SHA'
+timeout: 3600s

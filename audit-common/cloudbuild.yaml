@@ -1,0 +1,10 @@
+steps:
+  - id: 'maven-onlypr'
+    name: maven:3.6.0-jdk-11-slim
+    entrypoint: 'mvn'
+    args: ['-B', '-Dmaven.artifact.threads=30', 'clean', 'install']
+  - id: 'maven-nopr'
+    name: maven:3.6.0-jdk-11-slim
+    entrypoint: 'mvn'
+    args: ['-B', '-Dmaven.artifact.threads=30', 'clean', 'install', 'deploy']
+timeout: 3600s

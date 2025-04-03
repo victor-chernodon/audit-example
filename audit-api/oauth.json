@@ -1,0 +1,10 @@
+{
+	"version": 1,
+	"scopes": [
+		"core_audit_logs.read"
+	],
+	"authorities": [
+		"ROLE_CLIENT",
+	 	"ROLE_AUDIT_LOGS_CLIENT"
+	]
+}

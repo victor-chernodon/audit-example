@@ -1,0 +1,11 @@
+api.docs.internal: true
+
+# Log config
+logging:
+  level:
+    com.auditexample: DEBUG
+    org.springframework: INFO
+    org.apache.kafka: INFO
+    org:
+      springframework:
+        cloud: DEBUG
